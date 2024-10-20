@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,30 +19,29 @@ public class Customer {
 
 	@Id
 	private String uuid;
-	@NotEmpty(message = "first name should not be Empty!")
+	@NotEmpty(message = "first name should be not Empty and not null! ")
+	@NotNull
 	@JsonProperty("first_name")
 	private String first_name;
-	
-	@NotEmpty(message = "Last name should not be Empty!")
+	@NotNull
+	@NotEmpty(message = "Last name should be not Empty and not null! ")
 	@JsonProperty("last_name")
 	private String last_name;
-	@NotEmpty(message = "street name should not be Empty!")
+	@NotNull
+	@NotEmpty(message = "Last name should be not Empty and not null!")
 	private String street;
-	
-	@NotEmpty(message = "address should not be Empty!")
+	@NotNull
+	@NotEmpty(message = "Last name should be not Empty and not null!")
 	private String address;
-	
-	@NotEmpty(message = "City should not be Empty!")
+	@NotNull
+	@NotEmpty(message = "Last name should be not Empty and not null!")
 	private String city;
-	
-	@NotEmpty(message = "State should be not Empty and not null!")
+	@NotNull
+	@NotEmpty(message = "Last name should be not Empty and not null!")
 	private String state;
-	
-	@Email(message = "please write proper email format")
+	@Email(message = "please write email format and not null!")
 	private String email;
-	
-	@NotEmpty(message = "phone number should not be Empty give proper valid phone number!")
+	@NotNull
+	@NotEmpty(message = "Last name should be not Empty and not null!")
 	private String phone;
 }
-
-

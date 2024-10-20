@@ -1,6 +1,5 @@
 package com.sunBase.service;
 
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -32,23 +32,18 @@ public class SyncApiService {
     public String authenticate() {
         String url = "https://qa.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp";
 
-        
         Map<String, String> requestBody = Map.of(
             "login_id", "test@sunbasedata.com",
             "password", "Test@123"
         );
 
-       
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        
         HttpEntity<Map<String, String>> entity = new HttpEntity<>(requestBody, headers);
 
-   
         ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, entity, Map.class);
 
-       
         if (response.getBody() != null) {
             return (String) response.getBody().get("access_token");
         }
@@ -58,28 +53,31 @@ public class SyncApiService {
     public List<Customer> getCustomerList(String token) {
         String url = "https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp";
 
-       
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + token);
 
-        
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
             .queryParam("cmd", "get_customer_list");
 
-        
         HttpEntity<Void> entity = new HttpEntity<>(headers);
 
-      
         ResponseEntity<Customer[]> response = restTemplate.exchange(
             builder.toUriString(), 
             HttpMethod.GET, 
             entity, Customer[].class
         );
 
-       
-        return Arrays.asList(response.getBody());
+        List<Customer> customerList = Arrays.asList(response.getBody());
+
+        // Log customer data for debugging
+        for (Customer customer : customerList) {
+            System.out.println("Fetched customer: " + customer);
+        }
+
+        return customerList;
     }
 
+    @Transactional
     public String authenticateFetchAndSyncCustomerList() {
         String token = authenticate();
         if (token != null) {

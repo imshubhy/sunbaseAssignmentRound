@@ -40,6 +40,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
         }else
-            throw new BadCredentialsException("user is not fount with these  Credentials !:- "+loginid);
+            throw new BadCredentialsException("User is not found with these Credentials: "+loginid);
     }
 }
