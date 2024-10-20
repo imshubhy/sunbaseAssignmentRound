@@ -4,6 +4,9 @@
 This project is a **Customer Management System** built using **Spring Boot**. It provides a complete CRUD (Create, Read, Update, Delete) functionality for managing customers. The application uses **JWT (JSON Web Token)** for securing API endpoints and ensures only authenticated admins can access and manage customer data.
 
 ---
+<img width="1440" alt="Screenshot 2024-10-20 at 8 00 47 PM" src="https://github.com/user-attachments/assets/7592dd57-d15b-4707-a45e-345db2fcf4d9">
+<img width="1440" alt="Screenshot 2024-10-20 at 8 01 10 PM" src="https://github.com/user-attachments/assets/9b333fb9-b51c-4bd1-8607-95303dc2966f">
+
 
 ## Features
 
